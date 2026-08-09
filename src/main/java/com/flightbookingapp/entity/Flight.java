@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.flightbookingapp.dto.AirLine;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

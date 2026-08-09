@@ -1,6 +1,7 @@
 package com.flightbookingapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.flightbookingapp.dto.Gender;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

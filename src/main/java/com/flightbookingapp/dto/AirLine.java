@@ -1,4 +1,4 @@
-package com.flightbookingapp.entity;
+package com.flightbookingapp.dto;
 
 public enum AirLine {
 	INDIGO,
