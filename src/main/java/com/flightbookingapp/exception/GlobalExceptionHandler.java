@@ -24,6 +24,28 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler  {
 	}
 	
 	
+	@ExceptionHandler(IdNotFoundException.class)
+	public ResponseEntity<ErrorResponse<String>> handleIdNotFoundException(IdNotFoundException e) {
+		ErrorResponse<String> res = new ErrorResponse<String>();
+		
+		res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		res.setMessage(e.getMessage());
+		res.setData("Error");
+		
+		return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<ErrorResponse<String>> handleResourceNotFoundException(ResourceNotFoundException e) {
+		ErrorResponse<String> res = new ErrorResponse<String>();
+		
+		res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		res.setMessage(e.getMessage());
+		res.setData("Error");
+		
+		return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+	}
+
 }
 
 

@@ -1,5 +1,46 @@
 package com.flightbookingapp.controller;
 
-public class FlightController {
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.flightbookingapp.dto.ResponseStructure;
+import com.flightbookingapp.dto.SearchFlightBySourceAndDestinationDto;
+import com.flightbookingapp.entity.Flight;
+import com.flightbookingapp.service.FlightService;
+
+@RestController
+@RequestMapping("/flight")
+public class FlightController {
+	
+	@Autowired
+	private FlightService flightService;
+	
+	@PostMapping("/save")
+	public ResponseEntity<ResponseStructure<Flight>> saveFlight(@RequestBody Flight flight) {
+		return new ResponseEntity<ResponseStructure<Flight>>(flightService.saveFlight(flight),HttpStatus.OK);
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<ResponseStructure<List<Flight>>> getAllFlights() {
+		return new ResponseEntity<>(flightService.getAllFlights(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{flightId}")
+	public ResponseEntity<ResponseStructure<Flight>> getFlightById(@PathVariable Integer flightId) {
+		return new ResponseEntity<ResponseStructure<Flight>>(flightService.getFlightById(flightId),HttpStatus.OK);
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<ResponseStructure<List<Flight>>> searchFlightBySourceAndDestination(@RequestBody SearchFlightBySourceAndDestinationDto body) {
+		return new ResponseEntity<ResponseStructure<List<Flight>>>(flightService.searchFlightBySourceAndDestination(body),HttpStatus.OK);
+	}
 }
