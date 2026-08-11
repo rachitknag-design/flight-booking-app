@@ -1,5 +1,6 @@
 package com.flightbookingapp.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.jspecify.annotations.Nullable;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.flightbookingapp.dto.AirLine;
 import com.flightbookingapp.dto.ResponseStructure;
 import com.flightbookingapp.dto.SearchFlightBySourceAndDestinationDto;
 import com.flightbookingapp.entity.Flight;
@@ -93,4 +95,36 @@ public class FlightService {
 		}
 	}
 
+	public ResponseStructure<List<Flight>> getFlightByAirline(AirLine airLine) {
+		List<Flight> fetchedFlights = flightRepository.findByAirLine(airLine);
+		ResponseStructure<List<Flight>> res = new ResponseStructure<>();
+		
+		if(fetchedFlights.isEmpty()) {
+			throw new ResourceNotFoundException("No flights present for airline "+airLine+".");
+		} else {
+			res.setData(fetchedFlights);
+			res.setMessage("All flights from "+airLine+" fetched successfully.");
+			res.setStatusCode(HttpStatus.OK.value());
+			return res;
+		}
+	}
+
+	public ResponseStructure<List<Flight>> getFlightBetweenRange(BigDecimal start,BigDecimal end) {
+		
+		
+		if(start.compareTo(end)>0) {
+			throw new InvalidDataException("THe start range value should be less than end range.");
+		}
+		
+		List<Flight> fetchedFlights = flightRepository.findByPriceBetween(start, end);
+		ResponseStructure<List<Flight>> res = new ResponseStructure<List<Flight>>();
+		if(fetchedFlights.isEmpty()) {
+			throw new ResourceNotFoundException("No flight availiable between the range "+start+" to "+end+".");
+		} else {
+			res.setData(fetchedFlights);
+			res.setMessage("All flights fetched between the range "+start+" to "+end+".");
+			res.setStatusCode(HttpStatus.OK.value());
+			return res;
+		}
+	}
 }
