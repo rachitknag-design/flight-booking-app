@@ -28,11 +28,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler  {
 	public ResponseEntity<ErrorResponse<String>> handleIdNotFoundException(IdNotFoundException e) {
 		ErrorResponse<String> res = new ErrorResponse<String>();
 		
-		res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		res.setStatusCode(HttpStatus.NOT_FOUND.value());
 		res.setMessage(e.getMessage());
 		res.setData("Error");
 		
-		return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(ResourceNotFoundException.class)
@@ -44,6 +44,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler  {
 		res.setData("Error");
 		
 		return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class) 
+	public ResponseEntity<ErrorResponse<String>> handleIllegalArgumentException(IllegalArgumentException e) {
+		ErrorResponse<String> res = new ErrorResponse<String>();
+		
+		res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		res.setMessage(e.getMessage());
+		res.setData("Error");
+		
+		return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
 	}
 
 }

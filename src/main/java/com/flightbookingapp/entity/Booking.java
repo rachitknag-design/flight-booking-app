@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.flightbookingapp.dto.BookingStatus;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -33,6 +34,7 @@ public class Booking {
 	private Integer bookingId;
 	
 	@CreationTimestamp
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime bookingDateTime;
 	
 	@Enumerated(EnumType.STRING)

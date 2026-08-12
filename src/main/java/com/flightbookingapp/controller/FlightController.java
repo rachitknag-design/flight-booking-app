@@ -28,8 +28,8 @@ public class FlightController {
 	private FlightService flightService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<ResponseStructure<Flight>> saveFlight(@RequestBody Flight flight) {
-		return new ResponseEntity<ResponseStructure<Flight>>(flightService.saveFlight(flight),HttpStatus.OK);
+	public ResponseEntity<ResponseStructure<Flight>> createFlight(@RequestBody Flight flight) {
+		return new ResponseEntity<ResponseStructure<Flight>>(flightService.createFlight(flight),HttpStatus.OK);
 	}
 	
 	@GetMapping("/all")

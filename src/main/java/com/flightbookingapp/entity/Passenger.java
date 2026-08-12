@@ -33,7 +33,7 @@ public class Passenger {
 	
 	private String seatNumber;
 	
-	@Column(length = 10)
+	@Column(length = 15)
 	private String contactNumber;
 	
 	@JsonIgnore

@@ -24,7 +24,7 @@ public class FlightService {
 	@Autowired
 	private FlightRepository flightRepository;
 
-	public ResponseStructure<Flight> saveFlight(Flight flight) {
+	public ResponseStructure<Flight> createFlight(Flight flight) {
 		if(flight.getFlightId()!=null) {
 			throw new InvalidDataException("Id must not be provide to create a new flight record.");
 		}
